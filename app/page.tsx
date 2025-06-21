@@ -1,13 +1,45 @@
-import { Button } from '@/components/ui/button'
+import CompanionCard from '@/components/ui/CompanionCard'
+import CompanionsList from '@/components/ui/CompanionsList'
+import CTA from '@/components/ui/CTA'
 
 const Page = () => {
   return (
-    <div>
-      <h1 className='text-2xl underline'>Welcome to the Next.js App!</h1>
-      <Button>
-        Let's get started
-      </Button>
-    </div>
+    <main>
+      <h1 className="text-2xl underline"> Popular Companions</h1> 
+        <section className="home-section">
+          <CompanionCard
+            id="1"
+            name="Neura the Brainy Explorer"
+            topic="Neural Network of the brain"
+            subject="science"
+            duration={45}
+            color="#ffda6e"
+          />
+          <CompanionCard
+            id="2"
+            name="Countsy the Number Wizard"
+            topic="Derivative and Integrals"
+            subject="maths"
+            duration={30}
+            color="#e5d0ff"
+          />
+          <CompanionCard
+            id="4"
+            name="Verba the Vocabulary Builder"
+            topic="language"
+            subject="English Literature"
+            duration={30}
+            color="#BDE7FF"
+          />
+        </section>
+      
+        <section className="home-section">
+          <CompanionsList />
+          <CTA /> 
+        </section>
+      
+
+    </main>
   )
 }
 

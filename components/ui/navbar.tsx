@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import NavItems from "../navitems"
+import NavItems from "@/components/ui/navitems";
+
 
 const Navbar = () => {
   return (
