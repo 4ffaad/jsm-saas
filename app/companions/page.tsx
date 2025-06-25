@@ -2,7 +2,7 @@
 const CompanionsLibrary = () => {
   return (
     <div>
-      
+      companion session
     </div>
   )
 }
