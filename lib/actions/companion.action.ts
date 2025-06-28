@@ -15,3 +15,42 @@ export const createCompanion = async (formData: CreateCompanion) => {
     if (error || !data) throw new Error(error?.message || ' Failed to create a companion');
     return data[0];
 }
+export const getAllCompanions = async ({
+  limit = 10,
+  page = 1,
+  subject,
+  topic,
+}: GetAllCompanions) => {
+  const supabase = createSupabaseClient();
+
+  try {
+    let query = supabase.from("companions").select();
+
+    if (subject && topic) {
+      query = query
+        .ilike('subject', `%${subject}%`)
+        .or(`topic.ilike.%${topic}%,name.ilike.%${topic}%`);
+    } else if (subject) {
+      query = query.ilike('subject', `%${subject}%`);
+    } else if (topic) {
+      query = query.or(`topic.ilike.%${topic}%,name.ilike.%${topic}%`);
+    }
+
+    query = query.range((page - 1) * limit, page * limit - 1);
+
+    const { data: companions, error } = await query;
+
+    if (error) {
+      console.error("Supabase query error:", error);
+      throw new Error(error.message);
+    }
+
+    console.log(`Fetched ${companions?.length || 0} companions with filters`, { subject, topic, page, limit });
+
+    return companions || [];
+  } catch (err) {
+    console.error("Error in getAllCompanions:", err);
+    // Return empty array on error to keep UI stable
+    return [];
+  }
+};
